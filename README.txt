@@ -1,9 +1,8 @@
-
 TITLE: 
 Traveler - 100% Fully Responsive Free HTML5 Bootstrap Template
 
 AUTHOR:
-DESIGNED & DEVELOPED by GetTemplates.co
+DESIGNED & DEVELOPED by GetTemplates.co MODIFIED by Team NEONS(Manish, Shubham, Sanjib, Tushar) for TAMUHACK
 
 Website: http://gettemplates.co/
 Twitter: http://twitter.com/gettemplatesco
