@@ -4,7 +4,7 @@ session_start();
  
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['pnr']) || empty($_SESSION['pnr'])){
-  header("location: login.php");
+  header("location: index.php");
   exit;
 }
 ?>
@@ -16,14 +16,21 @@ if(!isset($_SESSION['pnr']) || empty($_SESSION['pnr'])){
     <title>Welcome</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
-        body{ font: 14px sans-serif; text-align: center; }
+        body{ 
+			font: 14px sans-serif; text-align: center;
+			background: url(images/airline.jpg) no-repeat center center fixed; 
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
     </style>
 </head>
 <body>
     <div class="page-header">
-        <h1>Hi, <b><?php echo $_SESSION['pnr']; ?></b>. Welcome to our site.</h1>
+        <h1>Hello, <b><?php echo $_SESSION['pnr']; ?></b>. Welcome to our site.</h1>
     </div>
-    <p><a href="logout.php" class="btn btn-danger">Go Back to Request Page</a></p>
+    <p><a href="seat.php" class="btn btn-danger">Go Back to Seat Matching Home Page</a></p>
 </body>
 </html>
 
