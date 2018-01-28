@@ -1,8 +1,8 @@
 TITLE: 
-Traveler - 100% Fully Responsive Free HTML5 Bootstrap Template
+EASE MY FLIGHT - For a better flying experience!
 
 AUTHOR:
-DESIGNED & DEVELOPED by GetTemplates.co MODIFIED by Team NEONS(Manish, Shubham, Sanjib, Tushar) for TAMUHACK
+MODIFIED by Team NEONS(Manish, Shubham, Sanjib, Tushar) for TAMUHACK [template used from GetTemplates.co]
 
 Website: http://gettemplates.co/
 Twitter: http://twitter.com/gettemplatesco
