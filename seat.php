@@ -100,7 +100,7 @@
 		 
             // Define variables and initialize with empty values
 			$pnr = $lastname = $choice_seat = $curr_seat = $seat_num = "";
-			$lastname_err = $pnr_err = "";
+			$lastname_err = $pnr_err = $choice_seat_err = $curr_seat_err = $seat_num_err = "";
 			
 			
 			// Processing form data when form is submitted
@@ -108,41 +108,41 @@
  
 				// Check if lastname is empty
 				if(empty($_POST["lastname"])){
-					echo 'Please enter last name.';
+					$lastname_err =  'Please enter last name.';
 				} else{
 					$lastname = trim($_POST["lastname"]);
 				}
 			
 				// Check if PNR is empty
 				if(empty($_POST['pnr'])){
-					echo 'Please enter your PNR';
+					$pnr_err = 'Please enter your PNR';
 				} else{
 					$pnr = trim($_POST['pnr']);
 				}
 				
 				// Check if seat num is empty
 				if(empty($_POST['seat_num'])){
-					echo 'Please enter your Seat Number';
+					$seat_num_err = 'Please enter your Seat Number';
 				} else{
 					$seat_num = trim($_POST['seat_num']);
 				}
 
-				if(!isset($_POST['curr_seat'])){
-					echo "You forgot to select your current seat";
+				if(empty($_POST['curr_seat'])){
+					$curr_seat_err = "You forgot to select your current seat";
 				} else {
 					$curr_seat = trim($_POST['curr_seat']);
 				}
 				
-				if(!isset($_POST['choice_seat'])){
-					echo "You forgot to select your choice seat";
+				if(empty($_POST['choice_seat'])){
+					$choice_seat_err = "You forgot to select your choice seat";
 				} else {
 					$choice_seat = trim($_POST['choice_seat']);
 				}
 				
-				echo "choice_seat ".$choice_seat." current seat: ".$curr_seat." seat number".$seat_num;
+				//echo "choice_seat ".$choice_seat." current seat: ".$curr_seat." seat number".$seat_num;
 
 				// Validate credentials
-				if(empty($lastname_err) && empty($pnr_err)){
+				if(empty($lastname_err) && empty($pnr_err) && empty($curr_seat_err) && empty($choice_seat_err) && empty($seat_num_err)){
 					$sql = "SELECT lastname FROM user_cred WHERE pnr = $pnr";
 					
 					$result = mysqli_query($link, $sql);
@@ -167,18 +167,18 @@
 								} else {
 									echo "Error: " . $sql . "<br>" . $conn->error;
 								}
-
-								
-								
+			
 								header("location: welcome.php");
 							} else {
-								echo 'The pnr you entered was not valid.';
+								echo 'The PNR or last name you entered is not valid.';
 							}
 						}
 					} else {
-						echo "PNR or Last Name is not Valid";
+						echo "PNR is not Valid";
 					}
 					
+				} else {
+					echo "All Fields are mandatory. Please Fill all fields";
 				}
 				
 				// Close connection
