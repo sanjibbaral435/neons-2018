@@ -94,7 +94,7 @@
 			}
 		 
             // Define variables and initialize with empty values
-			$pnr = $lastname = "";
+			$pnr = $lastname = $choice_seat = $curr_seat = $seat_num = "";
 			$lastname_err = $pnr_err = "";
 			
 			
@@ -103,25 +103,43 @@
  
 				// Check if lastname is empty
 				if(empty($_POST["lastname"])){
-					$lastname_err = 'Please enter last name.';
+					echo 'Please enter last name.';
 				} else{
 					$lastname = trim($_POST["lastname"]);
 				}
 			
 				// Check if PNR is empty
 				if(empty($_POST['pnr'])){
-					$pnr_err = 'Please enter your PNR';
+					echo 'Please enter your PNR';
 				} else{
 					$pnr = trim($_POST['pnr']);
 				}
-			
+				
+				// Check if seat num is empty
+				if(empty($_POST['seat_num'])){
+					echo 'Please enter your Seat Number';
+				} else{
+					$seat_num = trim($_POST['seat_num']);
+				}
+
+				if(!isset($_POST['curr_seat'])){
+					echo "You forgot to select your current seat";
+				} else {
+					$curr_seat = trim($_POST['curr_seat']);
+				}
+				
+				if(!isset($_POST['choice_seat'])){
+					echo "You forgot to select your choice seat";
+				} else {
+					$choice_seat = trim($_POST['choice_seat']);
+				}
+				
+				echo "choice_seat ".$choice_seat." current seat: ".$curr_seat." seat number".$seat_num;
+
 				// Validate credentials
 				if(empty($lastname_err) && empty($pnr_err)){
-					// Prepare a select statement
-					//echo $pnr;
 					$sql = "SELECT lastname FROM user_cred WHERE pnr = $pnr";
 					
-					//echo $sql;
 					$result = mysqli_query($link, $sql);
 					
 					if (mysqli_num_rows($result) > 0) {
@@ -130,7 +148,23 @@
 								/* pnr is correct, so start a new session and
 								save the pnr to the session */
 								session_start();
-								$_SESSION['pnr'] = $pnr;      
+								$_SESSION['pnr'] = $pnr;
+
+								
+								//insert all the data to user_req table
+								$sql_insert = "INSERT INTO user_req (pnr, current_seat, choice_seat, seat_num)
+								VALUES ('$pnr', '$curr_seat', '$choice_seat', '$seat_num')";
+
+
+								//echo $sql_insert;
+								if (mysqli_query($link, $sql_insert)) {
+									echo "New record created successfully";
+								} else {
+									echo "Error: " . $sql . "<br>" . $conn->error;
+								}
+
+								
+								
 								header("location: welcome.php");
 							} else {
 								echo 'The pnr you entered was not valid.';
@@ -140,8 +174,6 @@
 						echo "PNR or Last Name is not Valid";
 					}
 					
-					// Close statement
-					//mysqli_stmt_close($stmt);	
 				}
 				
 				// Close connection
@@ -162,8 +194,8 @@
             <input type = "text" class = "form-control"
                name = "lastname" placeholder = "Last Name" required>
 			<p>
-			What is your Current Seat?
-			<select name="currSeat">
+			What is your Current Seat Type?
+			<select name="curr_seat">
 			  <option value="">Select...</option>
 			  <option value="W">Window</option>
 			  <option value="M">Middle</option>
@@ -171,8 +203,11 @@
 			</select>
 			</p>
 			<p>
+			<input type = "text" class = "form-control"
+               name = "seat_num" placeholder = "Seat Number" required>
+			<p>
 			What is your choice Seat?
-			<select name="choiceSeat">
+			<select name="choice_seat">
 			  <option value="">Select...</option>
 			  <option value="W">Window</option>
 			  <option value="M">Middle</option>
